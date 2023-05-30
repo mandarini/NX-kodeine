@@ -1,0 +1,117 @@
+{
+  "name": "swc-test",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/swc-test/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/swc-test",
+        "main": "apps/swc-test/src/main.ts",
+        "tsConfig": "apps/swc-test/tsconfig.app.json",
+        "assets": ["apps/swc-test/src/assets"],
+        "generateLockfile": true,
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/swc-test/src/environments/environment.ts",
+              "with": "apps/swc-test/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "swc-test:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "swc-test:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/swc-test/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/swc-test/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "ci-docker": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "push": true,
+        "metadata": {
+          "images": ["ghcr.io/beyondclicksai/swc-test"],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=semver,pattern={{major}}.{{minor}}",
+            "type=semver,pattern={{major}}",
+            "type=raw,enable=true,priority=200,prefix={{branch}}-,suffix=,value=${version}",
+            "type=sha"
+          ]
+        }
+      }
+    },
+    "publish": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "push": true,
+        "preset": "conventional",
+        "trackDeps": true,
+        "skipCommitTypes": ["chore", "build", "ci", "docs", "refactor", "test"],
+        "commitMessageFormat": "build(${projectName}): release version ${version} [skip ci]",
+        "postTargets": ["swc-test:ci-docker", "swc-test:ci-bump-helm"]
+      }
+    },
+    "ci-github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
+      }
+    },
+    "ci-bump-helm": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "bash ./tools/scripts/bump_helm.sh -o ${PROJECT_ORGANIZATION} -r helm-${projectName} -b ${BRANCH:-none} -i ${projectName} -t ${BRANCH:-none}-${version} ;",
+            "forwardAllArgs": false
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

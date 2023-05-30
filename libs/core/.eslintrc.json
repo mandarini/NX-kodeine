@@ -1,0 +1,65 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["libs/core/tsconfig.*?.json"]
+      },
+      "rules": {
+        //
+        // import: turn on errors for missing imports
+        "import/no-unresolved": "error",
+
+        // simple-import-sort:
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+
+        // airbnb default is 1
+        "max-classes-per-file": ["error", 5],
+        // never allow default export
+        "import/prefer-default-export": "off",
+        // never allow default export
+        // "import/no-default-export": "error",
+        // added by airbnb not-practical for entity-relation definitions
+        "import/no-cycle": "off",
+        // needed so we can use class scoped generics in methods.
+        "class-methods-use-this": "off",
+        // airbnb default this doesnt work when using parameter decorators.
+        "@typescript-eslint/no-useless-constructor": "off",
+
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "require-await": "off",
+        "@typescript-eslint/require-await": "off",
+        "no-prototype-builtins": "off",
+        "import/no-default-export": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        // override airbnb to allow class interface merging
+        "@typescript-eslint/no-redeclare": [
+          "error",
+          { "ignoreDeclarationMerge": true }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ]
+}
