@@ -1,9 +1,5 @@
 // import { configureEnv } from '@beyondclicksai/core';
 import { Logger } from '@nestjs/common';
-import {
-  EventBusConfigType,
-  IEventStoreServiceConfig,
-} from 'nestjs-geteventstore';
 import * as util from 'util';
 
 // configureEnv(`./.env.${process.env.NODE_ENV || 'local'}`);
@@ -67,7 +63,7 @@ export const eventStoreConnectionConfig = {
   },
 };
 
-export const eventStoreSubsystems: IEventStoreServiceConfig = {
+export const eventStoreSubsystems = {
   subscriptions: {
     persistent: [
       // {
@@ -88,7 +84,7 @@ export const eventStoreSubsystems: IEventStoreServiceConfig = {
   //   Logger.log(`Hook onEvent : `, sub, payload),
 };
 
-export const eventBusConfig = (allowedEvents): EventBusConfigType =>
+export const eventBusConfig = allowedEvents =>
   ({
     read: {
       allowedEvents,
