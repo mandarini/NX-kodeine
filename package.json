@@ -78,8 +78,6 @@
     "markdown-it": "^12.1.0",
     "mjml": "^4.7.1",
     "nest-winston": "1.6.1",
-    "nestjs-context": "github:kodeine/nestjs-context",
-    "nestjs-geteventstore": "github:kodeine/nestjs-geteventstore#4.1.2",
     "nodemailer": "^6.4.8",
     "passport": "0.4.1",
     "passport-amazon": "1.0.0",

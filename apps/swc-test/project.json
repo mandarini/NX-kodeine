@@ -9,13 +9,14 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "target": "node",
-        "compiler": "tsc",
+        "compiler": "swc",
         "outputPath": "dist/apps/swc-test",
         "main": "apps/swc-test/src/main.ts",
         "tsConfig": "apps/swc-test/tsconfig.app.json",
         "assets": ["apps/swc-test/src/assets"],
         "generateLockfile": true,
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "external": "all"
       },
       "configurations": {
         "production": {
@@ -32,13 +33,24 @@
       }
     },
     "serve": {
-      "executor": "@nx/js:node",
+      "executor": "@nx/js:swc",
       "options": {
-        "buildTarget": "swc-test:build"
+        "target": "node",
+        "compiler": "swc",
+        "outputPath": "dist/apps/swc-test",
+        "main": "apps/swc-test/src/main.ts",
+        "tsConfig": "apps/swc-test/tsconfig.app.json",
+        "assets": ["apps/swc-test/src/assets"],
+        "generateLockfile": true,
+        "generatePackageJson": true,
+        "external": "all",
+        "watch": true
       },
       "configurations": {
-        "production": {
-          "buildTarget": "swc-test:build:production"
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "inspect": true
         }
       }
     },

@@ -1,4 +1,4 @@
-import { configureEnv } from '@beyondclicksai/core';
+// import { configureEnv } from '@beyondclicksai/core';
 import { Logger } from '@nestjs/common';
 import {
   EventBusConfigType,
@@ -6,7 +6,7 @@ import {
 } from 'nestjs-geteventstore';
 import * as util from 'util';
 
-configureEnv(`./.env.${process.env.NODE_ENV || 'local'}`);
+// configureEnv(`./.env.${process.env.NODE_ENV || 'local'}`);
 
 const discoverConn =
   process.env.NODE_ENV === 'local'
