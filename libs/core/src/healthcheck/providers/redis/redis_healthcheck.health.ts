@@ -4,8 +4,8 @@ import {
   HealthIndicator,
   HealthIndicatorResult,
 } from '@nestjs/terminus';
-import { REDIS_CACHE_MANAGER } from 'libs/core/src/cache';
-import { promiseTimeout } from 'libs/core/src/utils';
+import { REDIS_CACHE_MANAGER } from '../../../cache';
+import { promiseTimeout } from '../../../utils';
 
 @Injectable()
 export class RedisHealthIndicator extends HealthIndicator {
