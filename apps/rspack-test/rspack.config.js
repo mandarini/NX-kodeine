@@ -5,7 +5,7 @@ const { composePlugins, withNx } = require('@nx/rspack');
 module.exports = composePlugins(withNx(), config => {
   config.externals = [
     nodeExternals({
-      modulesDir: '/Users/yangjian/project/NX/node_modules',
+      modulesDir: path.join(__dirname, '../../', 'node_modules'),
     }),
   ];
   config.target = 'node';
