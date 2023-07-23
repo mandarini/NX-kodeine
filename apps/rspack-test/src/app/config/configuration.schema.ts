@@ -18,6 +18,7 @@ const configSchema = Joi.object({
     'local',
     'provision'
   ),
+
   SENTRY_DSN: Joi.string()
     .uri()
     .when('NODE_ENV', {
@@ -26,17 +27,10 @@ const configSchema = Joi.object({
       otherwise: Joi.allow('').optional(),
     }),
 
+  DATABASE_DSN: Joi.string().uri().required(),
+  DATABASE_TYPE: Joi.string().valid('mongo').required(),
+
   APP_TCP_SERVICE_PORT: Joi.number().port().required(),
-
-  ACCOUNT_TCP_SERVICE_HOST: Joi.string().hostname().required(),
-  ACCOUNT_TCP_SERVICE_PORT: Joi.number().port().required(),
-
-  // DATABASE_TYPE: Joi.string().valid('mongo').required(),
-  // DATABASE_PORT: Joi.number().port().required(),
-  // DATABASE_HOST: Joi.string().hostname().required(),
-  // DATABASE_USER: Joi.string().required(),
-  // DATABASE_PASS: Joi.string().when('NODE_ENV', { is: 'production', then: Joi.required(), otherwise: Joi.allow('').optional() }),
-  // DATABASE_NAME: Joi.string().required(),
 
   // EVENTSTORE_DSN: Joi.string().uri().required(),
   // EVENTSTORE_CLUSTER_DNS: Joi.string().uri().required(),
@@ -47,17 +41,34 @@ const configSchema = Joi.object({
   EVENTSTORE_HTTP_HOST: Joi.string().uri().required(),
   EVENTSTORE_HTTP_PORT: Joi.number().port().required(),
 
-  KAFKA_BROKERS: Joi.string().required(),
-  KAFKA_USERNAME: Joi.string().when('NODE_ENV', {
-    is: 'production',
-    then: Joi.required(),
-    otherwise: Joi.optional(),
-  }),
-  KAFKA_PASSWORD: Joi.string().when('NODE_ENV', {
-    is: 'production',
-    then: Joi.required(),
-    otherwise: Joi.optional(),
-  }),
+  // KAFKA_BROKERS: Joi.string().required(),
+  // KAFKA_USERNAME: Joi.string().when('NODE_ENV', {
+  //   is: 'production',
+  //   then: Joi.required(),
+  //   otherwise: Joi.optional(),
+  // }),
+  // KAFKA_PASSWORD: Joi.string().when('NODE_ENV', {
+  //   is: 'production',
+  //   then: Joi.required(),
+  //   otherwise: Joi.optional(),
+  // }),
+
+  REDIS_HOST: Joi.string().hostname().required(),
+  REDIS_PORT: Joi.number().port().required(),
+  REDIS_PASS: Joi.string().required(),
+  REDIS_DB: Joi.number().integer().default(0),
+  REDIS_TTL: Joi.number()
+    .positive()
+    .default(60 * 60),
+
+  STRIPE_CURRENCY: Joi.string().valid('usd').required(),
+  STRIPE_SECRET_KEY_TEST: Joi.string().required(),
+  STRIPE_SECRET_KEY_PROD: Joi.string().required(),
+  STRIPE_WEBHOOK_SECRET_TEST: Joi.string().required(),
+  STRIPE_WEBHOOK_SECRET_PROD: Joi.string().required(),
+  STRIPE_WEBHOOK_PREFIX: Joi.string().required().default('billing/stripe'),
+
+  FRONTEND_URL: Joi.string().uri().required(),
 });
 
 const testSchema = Joi.object({

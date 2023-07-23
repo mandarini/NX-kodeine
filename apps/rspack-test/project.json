@@ -32,6 +32,17 @@
         }
       }
     },
+    "hot": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx env-cmd -f ./apps/rspack-test/.env.local npx nodemon --quiet --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec nx serve rspack-test",
+            "forwardAllArgs": false
+          }
+        ]
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
