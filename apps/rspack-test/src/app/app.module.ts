@@ -17,10 +17,10 @@ import { configSchema, configuration } from './config';
       load: [configuration],
       isGlobal: true,
     }),
-    // MikroOrmModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: (config: ConfigService) => config.get('ormConfig'),
-    // }),
+    MikroOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => config.get('ormConfig'),
+    }),
     AppHealthCheckModule,
   ],
   controllers: [AppController],
