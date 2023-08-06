@@ -4,6 +4,7 @@ import {
   HealthIndicator,
   HealthIndicatorResult,
 } from '@nestjs/terminus';
+
 import { REDIS_CACHE_MANAGER } from '../../../cache';
 import { promiseTimeout } from '../../../utils';
 
