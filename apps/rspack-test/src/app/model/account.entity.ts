@@ -1,3 +1,4 @@
+import { AbstractEntity } from '@beyondclicksai/core';
 import {
   Entity,
   Index,
@@ -11,7 +12,7 @@ import { randomUUID } from 'crypto';
 @Directive(`@key(fields: "id")`)
 @ObjectType()
 @Entity({ tableName: 'ACCOUNTS' })
-export class Account {
+export class Account extends AbstractEntity {
   @PrimaryKey()
   _id: string = randomUUID();
 
