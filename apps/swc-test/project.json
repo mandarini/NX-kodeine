@@ -7,22 +7,29 @@
     "build": {
       "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
         "target": "node",
-        "compiler": "swc",
+        "compiler": "tsc",
         "outputPath": "dist/apps/swc-test",
         "main": "apps/swc-test/src/main.ts",
         "tsConfig": "apps/swc-test/tsconfig.app.json",
-        "assets": ["apps/swc-test/src/assets"],
+        "assets": [],
         "generateLockfile": true,
         "generatePackageJson": true,
+        "isolatedConfig": true,
         "external": "all"
       },
       "configurations": {
+        "development": {
+          "mode": "development"
+        },
         "production": {
+          "mode": "production",
           "optimization": true,
-          "extractLicenses": true,
+          "extractLicenses": false,
           "inspect": false,
+          "sourceMap": false,
           "fileReplacements": [
             {
               "replace": "apps/swc-test/src/environments/environment.ts",

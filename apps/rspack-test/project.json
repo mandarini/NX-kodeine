@@ -37,7 +37,6 @@
       "options": {
         "commands": [
           {
-            // "command": "npx env-cmd -f ./apps/rspack-test/.env.local npx nodemon --quiet --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec nx serve rspack-test",
             "command": "npx env-cmd -f ./apps/rspack-test/.env.local  npx ts-node-dev --respawn --transpile-only -r tsconfig-paths/register ./apps/rspack-test/src/main.ts -P ./apps/rspack-test/tsconfig.app.json",
             "forwardAllArgs": false
           }
