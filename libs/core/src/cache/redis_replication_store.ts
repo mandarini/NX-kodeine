@@ -138,4 +138,5 @@ const methods = {
   create: (...args) => redisReplicationStore(...args),
 };
 
-module.exports = methods;
+export default methods;
+// export const create = (...args: any[]) => redisReplicationStore(...args);

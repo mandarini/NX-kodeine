@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 
 @Module({
   controllers: [],
@@ -6,7 +6,9 @@ import { Module } from '@nestjs/common';
   exports: [],
 })
 export class CoreModule {
+  private readonly logger = new Logger(this.constructor.name);
+
   onModuleInit() {
-    console.log(`${this.constructor.name} init`);
+    this.logger.log(`>>>> ${this.constructor.name} init <<<<`);
   }
 }

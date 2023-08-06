@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { configSchema, configuration } from './config';
+import { Account } from './model/account.entity';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { configSchema, configuration } from './config';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.get('ormConfig'),
     }),
+    MikroOrmModule.forFeature([Account]),
     AppHealthCheckModule,
   ],
   controllers: [AppController],

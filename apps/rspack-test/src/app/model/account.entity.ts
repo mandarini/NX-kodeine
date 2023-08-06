@@ -33,6 +33,6 @@ export class Account {
   brandName: string;
 
   @Field(() => Int, { defaultValue: 5 })
-  @Property()
+  @Property({ type: 'number' })
   maxUsers = 5;
 }
