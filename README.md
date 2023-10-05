@@ -1,10 +1,10 @@
 
-# mikro-orm error
+# mikro-orm error - does not exist for `@nx/js@16.2.1`
 
 ## checkout branch
 
 ```
-git checkout migrate-16-3
+git checkout keep-16-2-js
 ```
 
 ## Install deps
@@ -25,7 +25,7 @@ npm i --force
    Hasher : Native
 
    nx                 : 16.3.0
-   @nx/js             : 16.3.0
+   @nx/js             : 16.2.1
    @nx/jest           : 16.3.0
    @nx/linter         : 16.3.0
    @nx/workspace      : 16.3.0
@@ -39,13 +39,19 @@ npm i --force
    ---------------------------------------
    Community plugins:
    @jscutlery/semver         : 2.30.1
-   @nx-tools/nx-container    : 4.0.3
+   @nx-tools/nx-container    : 4.0.4
    @nx/rspack                : 16.2.0
-   @webundsoehne/nx-builders : 6.1.12
+   @webundsoehne/nx-builders : 6.2.0
+   ---------------------------------------
+   The following packages should match the installed version of nx
+     - @nx/js@16.2.1
+     - @nrwl/js@16.2.1
+
+   To fix this, run `nx migrate nx@16.3.0`
 
 ```
 
-## Error repro
+## Error does not happen
 
 Running this command
 
@@ -53,43 +59,4 @@ Running this command
 nx serve rspack-test --verbose
 ```
 
-produces this error:
-
-```
-
-> nx run rspack-test:serve:development
-
-Debugger listening on ws://localhost:9229/87571ee9-61ec-4af1-a1a0-dcf64e98cb01
-Debugger listening on ws://localhost:9229/87571ee9-61ec-4af1-a1a0-dcf64e98cb01
-For help, see: https://nodejs.org/en/docs/inspector
-
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [NestFactory] Starting Nest application...
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] CoreModule dependencies initialized +42ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] MikroOrmModule dependencies initialized +0ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +0ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] TerminusModule dependencies initialized +0ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] AppModule dependencies initialized +0ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +1ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [InstanceLoader] AppHealthCheckModule dependencies initialized +0ms
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [MikroORM] [discovery] ORM entity discovery started, using ReflectMetadataProvider
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [MikroORM] [discovery] - processing 0 files
-[Nest] 33932  - 10/05/2023, 4:01:03 PM     LOG [MikroORM] [discovery] - processing entity Account
-[Nest] 33932  - 10/05/2023, 4:01:03 PM   ERROR [ExceptionHandler] Account entity is missing @PrimaryKey()
-
-MetadataError: Account entity is missing @PrimaryKey()
-    at Function.fromMissingPrimaryKey (/Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@mikro-orm/core/errors.js:105:16)
-    at MetadataValidator.validateEntityDefinition (/Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@mikro-orm/core/metadata/MetadataValidator.js:23:42)
-    at MetadataDiscovery.processEntity (/Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@mikro-orm/core/metadata/MetadataDiscovery.js:299:24)
-    at /Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@mikro-orm/core/metadata/MetadataDiscovery.js:52:63
-    at Array.forEach (<anonymous>)
-    at MetadataDiscovery.discover (/Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@mikro-orm/core/metadata/MetadataDiscovery.js:52:18)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at Function.init (/Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@mikro-orm/core/MikroORM.js:42:24)
-    at Injector.instantiateClass (/Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@nestjs/core/injector/injector.js:355:37)
-    at callback (/Users/fileas/Projects/nrwl/test-nx-workspaces/NX/node_modules/@nestjs/core/injector/injector.js:56:34)
-
-
->  NX  Process exited with code 1, waiting for changes to restart...
-                                                                        
-```
+Serve succeeds. Or at least no `PrimaryKey` missing error.
